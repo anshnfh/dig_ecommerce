@@ -15,4 +15,4 @@ class Migration(migrations.Migration):
             name='label',
             field=models.CharField(choices=[('NEW', 'primary'), ('SALE', 'info'), ('BEST', 'danger')], max_length=4),
         ),
-    ]
+    ]   
