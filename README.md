@@ -1,2 +1,5 @@
-# ecommerce-django-project
-Belajar membuat ecommerce website dengan menggunaakan django dan python
+# dig-ecommerce
+
+Submisi draft project membuat ecommerce menggunakan python & django
+
+**WIT kelas N Kelompok 4**
