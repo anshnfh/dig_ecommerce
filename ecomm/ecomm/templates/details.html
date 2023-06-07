@@ -1,0 +1,214 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>e-commerce {% block head_title %}{% endblock %}</title> {% block extra_head %} {% endblock %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <!-- MDB icon -->
+    <link rel="icon" href="{% static 'img/mdb-favicon.ico' %}" type="image/x-icon" />
+    <!-- Font Awesome -->
+    <!-- MDB -->
+    <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+    <!-- Template W3 -->
+    <!-- Font Awesome Icon Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0 auto;
+        /* Center website */
+        max-width: 800px;
+        /* Max width */
+        padding: 20px;
+      }
+
+      .heading {
+        font-size: 25px;
+        margin-right: 25px;
+      }
+
+      .fa {
+        font-size: 25px;
+      }
+
+      .checked {
+        color: orange;
+      }
+
+      .checked.half:after {
+        content: '\2605';
+        color: orange;
+        position: absolute;
+        margin-left: -20px;
+        width: 10px;
+        overflow: hidden;
+      }
+
+      /* Three column layout */
+      .side {
+        float: left;
+        width: 15%;
+        margin-top: 10px;
+      }
+
+      .middle {
+        margin-top: 10px;
+        float: left;
+        width: 70%;
+      }
+
+      /* Place text to the right */
+      .right {
+        text-align: right;
+      }
+
+      /* Clear floats after the columns */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      /* The bar container */
+      .bar-container {
+        width: 100%;
+        background-color: #f1f1f1;
+        text-align: center;
+        color: white;
+      }
+
+      /* Individual bars */
+      .bar-5 {width: {{ fiveStarPerc }}%; height: 18px; background-color: #04AA6D;}
+      .bar-4 {width: {{ fourStarPerc }}%; height: 18px; background-color: #2196F3;}
+      .bar-3 {width: {{ threeStarPerc }}%; height: 18px; background-color: #00bcd4;}
+      .bar-2 {width: {{ twoStarPerc }}%; height: 18px; background-color: #ff9800;}
+      .bar-1 {width: {{ oneStarPerc }}%; height: 18px; background-color: #f44336;}
+
+      /* Responsive layout - make the columns stack on top of each other instead of next to each other */
+      @media (max-width: 400px) {
+
+        .side,
+        .middle {
+          width: 100%;
+        }
+
+        .right {
+          display: none;
+        }
+      }
+    </style>
+    <!-- Template W3 -->
+  </head>
+
+  <body>
+    <span class="heading">User Rating</span>
+    {% for i in "x"|ljust:roundedAverage %}
+       <span class="fa fa-star checked"></span>
+    {% endfor %}
+    {% for i in "x"|ljust:modulusAverage %}
+       <span class="fa fa-star"></span>
+    {% endfor %}
+    <p>{{ average }} average based on {{ totalReview }} reviews.</p>
+    <hr style="border:3px solid #f1f1f1">
+    <div class="row">
+      <div class="side">
+        <div>5 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div class="bar-5"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>{{ fiveStarCount }}</div>
+      </div>
+      <div class="side">
+        <div>4 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div class="bar-4"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>{{ fourStarCount }}</div>
+      </div>
+      <div class="side">
+        <div>3 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div class="bar-3"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>{{ threeStarCount }}</div>
+      </div>
+      <div class="side">
+        <div>2 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div class="bar-2"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>{{ twoStarCount }}</div>
+      </div>
+      <div class="side">
+        <div>1 star</div>
+      </div>
+      <div class="middle">
+        <div class="bar-container">
+          <div class="bar-1"></div>
+        </div>
+      </div>
+      <div class="side right">
+        <div>{{ oneStarCount }}</div>
+      </div>
+    </div>
+    <div class="mt-5 pt-4"> {% if messages %} {% for message in messages %} <div class="container">
+        <div class="alert alert-{{ message.tags }} alert-dismissable">
+          <strong>{{ message }}</strong>
+        </div>
+      </div> {% endfor %} {% endif %} </div>
+    <br>
+    <div class="row">
+      <div>
+        <h3 class="text-center">Reviews</h3>
+        <form action="{% url 'toko:add_review' prod.id %}" method="POST"> {% csrf_token %} <label for="comment">Review</label>
+          <textarea name="comment" id="comment" cols="30" rows="5" class="form-control"></textarea>
+          <label for="score">Score</label>
+          <input type="range" id="rangeInput" name="score" min="0" max="5" value="0" step="1" oninput="amount.value=rangeInput.value">
+          <output name="amount" id="amount" for="rangeInput">0</output>
+          <br>
+          <input type="submit" class="btn btn-danger" value="Add Review">
+        </form>
+      </div>
+    </div>
+    <br>
+    <div class="card" style="background-color: black;">
+      <div class="card-body" style="background:white;">
+        <h3 class="text-center">Reviews</h3> {% for review in reviews %} <div class="row">
+          <div class="col-md-3">
+            <h5 class="test-left">{{ review.user.username }}</h5> {% if request.user == review.user %} <a href="{% url 'toko:edit_review' prod.id review.id %}">Edit</a>
+            <a href="{% url 'toko:delete_review' prod.id review.id %}" onclick="return confirm('Are you sure want to delete this?');">Delete</a> {% endif %}
+          </div>
+          <div class="col-md-9">
+            <p>{{ review.comment }}</p>
+            <h5>{{ review.score }}</h5>
+          </div>
+          <br>
+          <!-- <div><h5>{{review.user.username}}</h5></div> -->
+          <!-- <div>{{review.score}} {{review.comment}}</div> -->
+        </div>
+        <br> {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

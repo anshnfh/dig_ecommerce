@@ -1,0 +1,22 @@
+{% extends 'reviews.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+<div class="container">
+	<div class="card">
+		<div class="card-body">
+			<h3 class="text-center">Edit Review</h3>
+			<form action="" method="POST">
+				{% csrf_token %}
+				{{ form | crispy }}
+				<input type="submit" value="Save Changes" class="btn btn-danger">
+				<br>
+				{% if error %}
+					<center><strong style="color:red;">{{ error }}</strong></center>
+				{% endif %}
+			</form>
+		</div>
+	</div>
+</div>

@@ -31,7 +31,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
-
+X_FRAME_OPTIONS = 'ALLOWALL'
 
 # Application definition
 
@@ -111,8 +111,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'maung',
         'USER': 'postgres',
-        'PASSWORD': 'anis1234',
-        'HOST': 'localhost',
+        'PASSWORD': 'password',
+        'HOST': '172.17.0.1',
         'PORT': '5432',
     }
 }

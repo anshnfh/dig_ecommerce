@@ -147,3 +147,32 @@ class Rating(models.Model):
 
     def __str__(self):
             return self.user.username
+
+class Review(models.Model):
+    produk = models.ForeignKey(ProdukItem, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.TextField(max_length=1000, blank=True)
+    score = models.PositiveIntegerField(default=1, null=True)
+    status = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.user.username
+
+    def update_at(self):
+        return self.updated_at.strftime('%B %d, %Y')
+
+    def hour_update(self):
+        return self.updated_at.strftime('%H:%M:%S')
+
+    def __str__(self):
+        return self.comment
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                name="%(app_label)s_%(class)s_score_range",
+                check=models.Q(score__range=(1, 5)),
+            ),
+        ]

@@ -25,8 +25,8 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('paypal/', include('paypal.standard.ipn.urls')),
     path('', include('toko.urls', namespace='toko')),
-   # path('product/<int:product_id>/', views.product_detail, name='product_detail'),
-    path('product/<int:object_id>/add_rating/', views.add_rating, name='add_rating'),
+    #path('product/<int:product_id>/', views.product_detail, name='product_detail'),
+    #path('product/<int:object_id>/add_rating/', views.add_rating, name='add_rating'),
     #path('ratings/', include('ratings.urls')),
 ]
 

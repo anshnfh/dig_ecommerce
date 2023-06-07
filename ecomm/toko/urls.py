@@ -14,4 +14,8 @@ urlpatterns = [
      path('paypal-return/', views.paypal_return, name='paypal-return'),
      path('paypal-cancel/', views.paypal_cancel, name='paypal-cancel'),
      path('contact/', views.kontak, name='kontak'),
+     path('details/<int:id>/',views.detail,name="detail"),
+     path('addreview/<int:id>/',views.add_review,name="add_review"),
+     path('editreview/<int:produk_id>/<int:review_id>',views.edit_review,name="edit_review"),
+     path('deletereview/<int:produk_id>/<int:review_id>',views.delete_review,name="delete_review"),
 ]
