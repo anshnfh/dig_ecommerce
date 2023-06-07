@@ -2,4 +2,4 @@
 
 Submisi draft project membuat ecommerce menggunakan python & django
 
-**WIT kelas N Kelompok 4**
+**WIT kelas N Kelompok 5**
