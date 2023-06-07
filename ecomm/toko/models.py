@@ -33,7 +33,7 @@ class ProdukItem(models.Model):
     kategori = models.CharField(choices=PILIHAN_KATEGORI, max_length=2)
 
     def __str__(self):
-        return f"{self.nama_produk} - ${self.harga}"
+        return f"{self.nama_produk} - Rp{self.harga}"
 
     def get_absolute_url(self):
         return reverse("toko:produk-detail", kwargs={
