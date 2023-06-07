@@ -1,6 +1,7 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 
 {% block content%}
+
 
 <!--Main layout-->
 <main class="mt-5 pt-4">
@@ -10,6 +11,7 @@
             <!--Grid column-->
             <div class="col-md-6 mb-4">
                 <img src="{{ object.gambar.url }}" class="img-fluid" alt="" />
+                
             </div>
             <!--Grid column-->
 
@@ -19,37 +21,41 @@
                 <div class="p-4">
                     <div class="mb-3">
                         <a href="">
-                            <span class="badge bg-dark me-1">{{ object.get_kategori_display }}</span>
+                            <span class="badge bg-light me-1">{{ object.get_kategori_display }}</span>
                         </a>
                         {% if object.label == 'NEW' %}
                         <a href="">
-                            <span class="badge bg-{{ object.get_label_display }} me-1">New</span>
+                            <span class="badge bg-white bg-{{ object.get_label_display }} me-1">New</span>
                         </a>
                         {% elif object.label == 'SALE' %}
                         <a href="">
-                            <span class="badge bg-{{ object.get_label_display }} me-1">Sale</span>
+                            <span class="badge bg-white bg-{{ object.get_label_display }} me-1">Sale</span>
                         </a>
                         {% else %}
                         <a href="">
-                            <span class="badge bg-{{ object.get_label_display }} me-1">Bestseller</span>
+                            <span class="badge bg-white bg-{{ object.get_label_display }} me-1">Bestseller</span>
                         </a>
                         {% endif %}
                     </div>
 
+                    <div class="mb-6">
                     <p class="lead">
                         {% if object.harga_diskon %}
                         <span class="me-1">
                             <del>${{ object.harga }}</del>
                         </span>
-                        <span>${{ object.harga_diskon }}</span>
+                        <p style="font-size: 25px;">${{ object.harga_diskon }}</p>
                         {% else %}
-                        <span>${{ object.harga }}</span>
+                        <h4>${{ object.harga }}</h4>
                         {% endif %}
                     </p>
 
-                    <strong><p style="font-size: 20px;">Deskripsi</p></strong>
+                    <br>
 
+                    <strong><p style="font-size: 25px;">Deskripsi</p></strong>
+                    <br>
                     <p>{{ object.deskripsi }}</p>
+                    <br>
                     <a href="{{ object.get_add_to_cart_url }}" class="btn btn-primary ms-1">
                         Tambah ke keranjang
                         <i class="fas fa-shopping-cart ms-1"></i>
@@ -58,6 +64,7 @@
                         Kurangi keranjang
                         <i class="fas fa-shopping-cart ms-1"></i>
                     </a>
+                    </div>
                 </div>
                 <!--Content-->
             </div>
@@ -71,35 +78,24 @@
         <div class="row d-flex justify-content-center">
             <!--Grid column-->
             <div class="col-md-6 text-center">
-                <h4 class="my-4 h4">Additional information</h4>
+                <h4 class="my-4 h4">Ratings & Reviews</h4>
 
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus suscipit modi sapiente illo soluta odit voluptates, quibusdam officia. Neque quibusdam quas a quis porro? Molestias illo neque eum in laborum.</p>
+
+                {% for rating in ratings %}
+                  <p>{{ rating.user.username }}: {{ rating.score }}</p>
+                  <p>{{ rating.comment }}</p>
+                {% empty %}
+                  <p>No ratings yet.</p>
+                {% endfor %}
+
+               <a href="{% url 'add_rating' object_id=object.id %}">Add Rating</a>
+
+                
             </div>
             <!--Grid column-->
         </div>
-        <!--Grid row-->
 
-        <!--Grid row-->
-        <div class="row">
-            <!--Grid column-->
-            <div class="col-lg-4 col-md-12 mb-4">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="" />
-            </div>
-            <!--Grid column-->
-
-            <!--Grid column-->
-            <div class="col-lg-4 col-md-6 mb-4">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt="" />
-            </div>
-            <!--Grid column-->
-
-            <!--Grid column-->
-            <div class="col-lg-4 col-md-6 mb-4">
-                <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt="" />
-            </div>
-            <!--Grid column-->
-        </div>
-        <!--Grid row-->
+        
     </div>
 </main>
 <!--Main layout-->

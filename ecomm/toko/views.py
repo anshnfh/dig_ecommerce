@@ -9,16 +9,25 @@ from paypal.standard.forms import PayPalPaymentsForm
 
 
 from .forms import CheckoutForm
-from .models import ProdukItem, OrderProdukItem, Order, AlamatPengiriman, Payment
+from .models import ProdukItem, OrderProdukItem, Order, AlamatPengiriman, Payment, Rating
 
 class HomeListView(generic.ListView):
-    template_name = 'home.html'
+    template_name = 'home2.html'
     queryset = ProdukItem.objects.all()
-    paginate_by = 4
+    paginate_by = 20
 
 class ProductDetailView(generic.DetailView):
     template_name = 'product_detail.html'
     queryset = ProdukItem.objects.all()
+
+
+    #product = get_object_or_404(ProdukItem, pk=object.id)
+
+    # def show_rating(request, object_id):
+    #     id_prod = object_id 
+    #     produk = get_object_or_404(ProdukItem, pk=object_id)
+    #     #ratings = produk.ratings.all(pk=object_id)
+    #     return render(request, 'product_detail.html', {'produk': produk})
 
 class CheckoutView(LoginRequiredMixin, generic.FormView):
     def get(self, *args, **kwargs):
@@ -82,7 +91,7 @@ class PaymentView(LoginRequiredMixin, generic.FormView):
                 'business': settings.PAYPAL_RECEIVER_EMAIL,
                 'amount': order.get_total_harga_order,
                 'item_name': f'Pembayaran belajanan order: {order.id}',
-                'invoice': f'{order.id}-{timezone.now().timestamp()}' ,
+                'invoice': f'{order.    id}-{timezone.now().timestamp()}' ,
                 'currency_code': 'USD',
                 'notify_url': self.request.build_absolute_uri(reverse('paypal-ipn')),
                 'return_url': self.request.build_absolute_uri(reverse('toko:paypal-return')),
@@ -91,13 +100,14 @@ class PaymentView(LoginRequiredMixin, generic.FormView):
         
             qPath = self.request.get_full_path()
             isPaypal = 'paypal' in qPath
-        
+
             form = PayPalPaymentsForm(initial=paypal_data)
             context = {
                 'paypalform': form,
                 'order': order,
                 'is_paypal': isPaypal,
             }
+
             return render(self.request, template_name, context)
 
         except ObjectDoesNotExist:
@@ -212,3 +222,26 @@ def paypal_return(request):
 def paypal_cancel(request):
     messages.error(request, 'Pembayaran dibatalkan')
     return redirect('toko:order-summary')
+
+
+def add_rating(request, object_id):
+    product = get_object_or_404(ProdukItem, pk=object_id)
+    if request.method == 'POST':
+        score = request.POST.get('score')
+        comment = request.POST.get('comment')
+        rating = Rating(produk_id=product.id, user=request.user, score=score, comment=comment)
+        rating.save()
+        return redirect('toko:produk-detail', slug = product.slug)
+    return render(request, 'add_rating.html', {'produk_items': product})
+
+
+# def product_detail(request, object_id):
+#     #product = get_object_or_404(ProdukItem, pk=object_id)
+#     product = produk.all()
+#     ratings = ratings.all(pk=object_id)
+#     #ratings = produk.ratings.all(pk=object_id)
+#     return redirect('toko:produk-detail', slug = product.slug, product=product, ratings=rating)
+#     #return render(request, 'add_rating.html', {'produk_items': product})
+
+def kontak(request):
+    return render(request,'contact.html')

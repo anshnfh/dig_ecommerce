@@ -1,0 +1,11 @@
+<h1>Add Rating for {{ produk_items.nama_produk}} </h1>
+<form method="post">
+  {% csrf_token %}
+  <label for="score">Score:</label>
+  <input type="number" name="score" required>
+  <br>
+  <label for="comment">Comment:</label>
+  <textarea name="comment"></textarea>
+  <br>
+  <input type="submit" value="Submit" >
+</form>

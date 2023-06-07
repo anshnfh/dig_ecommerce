@@ -1,0 +1,219 @@
+
+
+{% extends 'base2.html' %}
+{% load static %}
+{% block content %}
+
+
+
+<body>
+    
+    <!-- ***** Preloader Start ***** -->
+
+    <!-- ***** Main Banner Area Start ***** -->
+    <div class="main-banner" id="top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6"  >
+                    <div class="left-content">
+                        <div class="thumb">
+                            <div class="inner-content">
+                                    <h4>Lingling Playground</h4>
+                                    <span>Jasa persewaan mainan anak-anak</span>
+                            </div>
+                            <img src="{% static 'assets/images/left-banner-image2.jpg' %}" alt="" style="width:100%; height: 100%; object-fit: cover;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="right-content">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="right-first-image">
+                                        <div class="thumb">
+                                            <div class="inner-content">
+                                                <h4 color="black">Slide</h4>
+                                                <span color="black">Mainan slide yang seru!</span>
+                                            </div>
+                                            <div class="hover-content">
+                                                <div class="inner">
+                                                    <!--<h4>Women</h4>
+                                                    <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>-->
+                                                    <div class="main-border-button">
+                                                        <a href="#">Cek Katalog</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <img src="{% static 'assets/images/3.jpg' %}">
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="right-first-image">
+                                        <div class="thumb">
+                                            <div class="inner-content">
+                                                <h4>Mandi Bola</h4>
+                                                <span>Rasakan adanya kolam bola milikmu!</span>
+                                            </div>
+                                            <div class="hover-content">
+                                                <div class="inner">
+                                                    <!--<h4>Men</h4>
+                                                    <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>-->
+                                                    <div class="main-border-button">
+                                                        <a href="#">Cek Katalog</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <img src="{% static 'assets/images/10.jpg' %}">
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="right-first-image">
+                                        <div class="thumb">
+                                            <div class="inner-content">
+                                                <h4>Country House</h4>
+                                                <span>Memiliki rumah kecil yang menggemaskan</span>
+                                            </div>
+                                            <div class="hover-content">
+                                                <div class="inner">
+                                                    <!--<h4>Kids</h4>
+                                                    <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>-->
+                                                    <div class="main-border-button">
+                                                        <a href="#">Cek Katalog</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <img src="{% static 'assets/images/19.jpg' %}">
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="right-first-image">
+                                        <div class="thumb">
+                                            <div class="inner-content">
+                                                <h4>Dream Playroom</h4>
+                                                <span>Buat ruang bermain impianmu</span>
+                                            </div>
+                                            <div class="hover-content">
+                                                <div class="inner">
+                                                    <!--<h4>Accessories</h4>
+                                                    <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>-->
+                                                    <div class="main-border-button">
+                                                        <a href="#">Cek Katalog</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <img src="{% static 'assets/images/11.jpg' %}">
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ***** Main Banner Area End ***** -->
+
+      <!-- ***** Main Banner Area Start ***** -->
+        
+
+    <!-- ***** Main Banner Area End ***** -->
+
+<!--
+<section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-heading">
+                        <h2>Produk Kami</h2>
+                        <span>Details to details is what makes Hexashop different from the other themes.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                {% for pItem in object_list %}
+                <div class="col-lg-12">
+                    <div class="carousel">
+                        <div class="owl-kid-item owl-carousel"> 
+                            <div class="item">
+                                <div class="thumb">
+                                    <div class="hover-content">
+                                        <ul>
+                                            <li><a href="{{ pItem.get_absolute_url }}"><i class="fa-solid fa-eye"></i></a></li>
+                                            
+                                        </ul>
+                                    </div>
+                                    <img src="{{ pItem.gambar.url }}" alt="">
+                                </div>
+                                <div class="down-content">
+                                    <h4>{{ pItem.nama_produk }}</h4>
+                                    <span>${% if pItem.harga_diskon %}{{ pItem.harga_diskon }}{% else %}{{ pItem.harga }}{% endif %}</span>
+                                </div>
+                            </div>
+                            {% empty %}
+                                  <p>Data Produk belum tersedia</p>
+                            {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+<br> <br>
+
+    <!-- Products -->
+    <div class="container">
+        <section class="section" id="kids">
+            <div class="container">
+              <div class="row">
+                {% for pItem in object_list %}
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                  <div class="card">
+                    <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                      data-mdb-ripple-color="light">
+                      <img src="{{ pItem.gambar.url }}"
+                        class="w-100" />
+                      <a href="{{ pItem.get_absolute_url }}"> 
+                        <div class="mask">
+                          <div class="d-flex justify-content-start align-items-end h-100">
+                            <h5><span class="badge bg-{{ pItem.get_label_display }} ms-2">{{ pItem.label }}</span></h5>
+                          </div>    
+                        </div>
+                        <div class="hover-overlay">
+                          <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="card-body">
+                      <a href="{{ pItem.get_absolute_url }}" class="text-reset">
+                        <h5 class="card-title mb-2">{{ pItem.nama_produk }}</h5>
+                      </a>
+                      <a href="" class="text-reset ">
+                        <p>{{ pItem.get_kategori_display }}</p>
+                      </a>
+                      <h6 class="mb-3 price">${% if pItem.harga_diskon %}{{ pItem.harga_diskon }}{% else %}{{ pItem.harga }}{% endif %}</h6>
+                    </div>
+                  </div>
+                </div>
+                {% empty %}
+                  <p>Data Produk belum tersedia</p>
+                {% endfor %}
+
+              </div>
+            </div>
+          </section>
+        </div>
+        <!-- End Products -->
+    
+   
+    
+
+  </body>
+</html>
+
+{% endblock content %}

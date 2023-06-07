@@ -18,12 +18,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from toko import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('paypal/', include('paypal.standard.ipn.urls')),
     path('', include('toko.urls', namespace='toko')),
+   # path('product/<int:product_id>/', views.product_detail, name='product_detail'),
+    path('product/<int:object_id>/add_rating/', views.add_rating, name='add_rating'),
+    #path('ratings/', include('ratings.urls')),
 ]
 
 if settings.DEBUG:

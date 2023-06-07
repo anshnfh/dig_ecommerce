@@ -32,6 +32,7 @@ class ProdukItem(models.Model):
     gambar = models.ImageField(upload_to='product_pics')
     label = models.CharField(choices=PILIHAN_LABEL, max_length=4)
     kategori = models.CharField(choices=PILIHAN_KATEGORI, max_length=2)
+    #rating = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f"{self.nama_produk} - ${self.harga}"
@@ -112,6 +113,7 @@ class AlamatPengiriman(models.Model):
     negara = models.CharField(max_length=100)
     kode_pos = models.CharField(max_length=20)
 
+
     def __str__(self):
         return f"{self.user.username} - {self.alamat_1}"
 
@@ -133,3 +135,15 @@ class Payment(models.Model):
     
     class Meta:
         verbose_name_plural = 'Payment'
+
+
+
+class Rating(models.Model):
+    produk = models.ForeignKey(ProdukItem, on_delete=models.CASCADE, related_name='ratings')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    score = models.PositiveIntegerField()
+    comment = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+            return self.user.username

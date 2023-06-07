@@ -109,7 +109,7 @@ WSGI_APPLICATION = 'ecomm.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ecomm',
+        'NAME': 'maung',
         'USER': 'postgres',
         'PASSWORD': 'anis1234',
         'HOST': 'localhost',
@@ -138,16 +138,16 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-#PAYPAL_CLIENT_ID = env('PAYPAL_SANDBOX_CLIENT_ID')
-#PAYPAL_SECRET_ID = env('PAYPAL_SANDBOX_SECRET_KEY')
+PAYPAL_CLIENT_ID = env('PAYPAL_SANDBOX_CLIENT_ID')
+PAYPAL_SECRET_ID = env('PAYPAL_SANDBOX_SECRET_KEY')
 
-#PAYPAL_RECEIVER_EMAIL = env('PAYPAL_RECEIVER_EMAIL')
-#PAYPAL_TEST = env('PAYPAL_TEST', default=False, cast=bool)
+PAYPAL_RECEIVER_EMAIL = env('PAYPAL_RECEIVER_EMAIL')
+PAYPAL_TEST = env('PAYPAL_TEST', default=False, cast=bool)
 CORS_ORIGIN_ALLOW_ALL = True
 
 
-#DEFAULT_FROM_EMAIL= env('DEFAULT_FROM_EMAIL')
-#NOTIFY_EMAIL= env('NOTIFY_EMAIL')
+DEFAULT_FROM_EMAIL= env('DEFAULT_FROM_EMAIL')
+NOTIFY_EMAIL= env('NOTIFY_EMAIL')
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/

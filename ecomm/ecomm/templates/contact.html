@@ -1,0 +1,71 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block content %}
+
+  <!-- ***** Contact Area Starts ***** -->
+    <div class="contact-us">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div id="map">
+                      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.864446644152!2d112.0366108748609!3d-6.906808193092591!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e779931fb4f2f11%3A0xdae4bf7b479f90a7!2sLINGLING%20PLAYGROUND!5e0!3m2!1sen!2sid!4v1686107081632!5m2!1sen!2sid" width="100%" height="400px" style="border:0;" allowfullscreen=""></iframe>
+                      <!-- You can simply copy and paste "Embed a map" code from Google Maps for any location. -->
+                      
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="section-heading">
+                        <h2>Say Hello. Don't Be Shy!</h2>
+                        <span>Hubungi kami</span>
+                    </div>
+                    <form id="contact" action="" method="post">
+                        <div class="row">
+                          <div class="col-lg-6">
+                            <fieldset>
+                              <input name="name" type="text" id="name" placeholder="Your name" required="">
+                            </fieldset>
+                          </div>
+                          <div class="col-lg-6">
+                            <fieldset>
+                              <input name="email" type="text" id="email" placeholder="Your email" required="">
+                            </fieldset>
+                          </div>
+                          <div class="col-lg-12">
+                            <fieldset>
+                              <textarea name="message" rows="6" id="message" placeholder="Your message" required=""></textarea>
+                            </fieldset>
+                          </div>
+                          <div class="col-lg-12">
+                            <fieldset>
+                              <button type="submit" id="form-submit" class="main-dark-button"><i class="fa fa-paper-plane"></i></button>
+                          </div>
+                        </div>
+                      </form>
+                </div>
+                <br>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+
+     <div class="contact-us">
+        <div class="container">
+          <div class="row">
+                  <div class="col-lg-4">
+                    <h4>Whatsapp</h4>
+                        <a href="https://wa.me/6282244986744">click here</a>
+                  </div>
+                  <div class="col-md-4">
+                    <h4>Facebook</h4>
+                        <a href="https://www.facebook.com/linglingplayground?mibextid=ZbWKwL">click here</a>
+                  </div>
+                  <div class="col-md-4">
+                    <h4>Instagram</h4>
+                        <a href="https://instagram.com/lingling_playground">click here</a>
+                  </div>
+                </div>
+        </div>          
+      </div>
+    <!-- ***** Contact Area Ends ***** -->
+{% endblock content %}

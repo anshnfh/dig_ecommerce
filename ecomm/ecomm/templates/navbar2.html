@@ -1,0 +1,41 @@
+{% load static %}
+{% load cart_template_tags %}
+
+ <!-- ***** Header Area Start ***** -->
+    <header class="header-area header-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="main-nav">
+                        <!-- ***** Logo Start ***** -->
+                        <a href="{% url 'toko:home-produk-list' %}" class="logo">
+                            <img src="{% static 'assets/images/logo_1.png' %}">
+                        </a>
+                        <!-- ***** Logo End ***** -->
+                        <!-- ***** Menu Start ***** -->
+                        <ul class="nav">
+                            <li><a href="{% url 'toko:checkout' %}">Check Out</a></li>
+                            <li><a href="{% url 'toko:kontak' %}">Contact Us</a></li>
+                            {% if request.user.is_authenticated %}
+                            <li><a href="{% url 'toko:order-summary' %}">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span class="badge rounded-pill badge-notification bg-danger">{{ request.user|total_produk_dikeranjang }}</span></a>
+                            </li>
+                            <li><a href="{% url 'account_logout' %}">Logout</a></li>
+                            {% else %}
+                            <li>
+                                <a href="{% url 'account_login' %}">
+                                <i class="fa-solid fa-right-to-bracket"></i></a>
+                            </li>
+                            {% endif %}
+                        </ul>        
+                        <a class='menu-trigger'>
+                            <span>Menu</span>
+                        </a>
+                        <!-- ***** Menu End ***** -->
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- ***** Header Area End ***** -->

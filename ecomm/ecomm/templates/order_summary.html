@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 
 {% block content %}
 <div class="container">
@@ -80,9 +80,9 @@
             </tr>
 
             <tr>
-                <td colspan="5">
-                <a class='btn btn-info float-end ml-2' href="{% url 'toko:checkout' %}">Checkout</a>
-                <a class='btn btn-danger' href="{% url 'toko:home-produk-list' %}">Lanjut belanja</a>
+                <td colspan="5" style="text-align: center;">
+                <a class='btn btn-info ml-2 align-items-center' href="{% url 'toko:checkout' %}">Checkout</a>
+                <a class='btn btn-danger align-items-center' href="{% url 'toko:home-produk-list' %}">Lanjut belanja</a>
                 </td>
             </tr>
             {% endif %}
