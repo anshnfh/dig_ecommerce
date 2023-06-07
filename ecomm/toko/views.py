@@ -9,16 +9,18 @@ from paypal.standard.forms import PayPalPaymentsForm
 
 
 from .forms import CheckoutForm
-from .models import ProdukItem, OrderProdukItem, Order, AlamatPengiriman, Payment
+from .models import  ProdukItem, OrderProdukItem, Order, AlamatPengiriman, Payment
 
 class HomeListView(generic.ListView):
     template_name = 'home.html'
     queryset = ProdukItem.objects.all()
-    paginate_by = 4
+    paginate_by = 100
 
 class ProductDetailView(generic.DetailView):
     template_name = 'product_detail.html'
     queryset = ProdukItem.objects.all()
+
+
 
 class CheckoutView(LoginRequiredMixin, generic.FormView):
     def get(self, *args, **kwargs):
@@ -83,7 +85,7 @@ class PaymentView(LoginRequiredMixin, generic.FormView):
                 'amount': order.get_total_harga_order,
                 'item_name': f'Pembayaran belajanan order: {order.id}',
                 'invoice': f'{order.id}-{timezone.now().timestamp()}' ,
-                'currency_code': 'USD',
+                'currency_code': 'IDR',
                 'notify_url': self.request.build_absolute_uri(reverse('paypal-ipn')),
                 'return_url': self.request.build_absolute_uri(reverse('toko:paypal-return')),
                 'cancel_return': self.request.build_absolute_uri(reverse('toko:paypal-cancel')),

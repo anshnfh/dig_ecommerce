@@ -4,15 +4,17 @@ from django.db import models
 from django.urls import reverse
 
 PILIHAN_KATEGORI = (
-    ('S', 'Shirt'),
-    ('SW', 'Sport wear'),
-    ('OW', 'Outwear')
+    ('S', 'Slide'),
+    ('SS', 'Slide & Swing'),
+    ('P', 'Playhouse'),
+    ('MB', 'Mandi Bola'),
+    ('T', 'Trampoline')
 )
 
 PILIHAN_LABEL = (
-    ('NEW', 'primary'),
-    ('SALE', 'info'),
-    ('BEST', 'danger'),
+    ('15Kg','BB max 15 kg'),
+    ('25Kg','BB max 25kg'),
+    ('35Kg','BB max 35 kg')
 )
 
 PILIHAN_PEMBAYARAN = (
@@ -29,11 +31,11 @@ class ProdukItem(models.Model):
     slug = models.SlugField(unique=True)
     deskripsi = models.TextField()
     gambar = models.ImageField(upload_to='product_pics')
-    label = models.CharField(choices=PILIHAN_LABEL, max_length=4)
-    kategori = models.CharField(choices=PILIHAN_KATEGORI, max_length=2)
+    label = models.CharField(choices=PILIHAN_LABEL, max_length=5)
+    kategori = models.CharField(choices=PILIHAN_KATEGORI, max_length=4)
 
     def __str__(self):
-        return f"{self.nama_produk} - ${self.harga}"
+        return f"{self.nama_produk} - Rp{self.harga}"
 
     def get_absolute_url(self):
         return reverse("toko:produk-detail", kwargs={
@@ -49,7 +51,7 @@ class ProdukItem(models.Model):
         return reverse("toko:remove-from-cart", kwargs={
             "slug": self.slug
             })
-    
+ 
 class OrderProdukItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ordered = models.BooleanField(default=False)

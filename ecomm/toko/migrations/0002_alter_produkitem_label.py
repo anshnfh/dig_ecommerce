@@ -13,6 +13,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='produkitem',
             name='label',
-            field=models.CharField(choices=[('NEW', 'primary'), ('SALE', 'info'), ('BEST', 'danger')], max_length=4),
+            field=models.CharField(choices=[('15Kg', 'BB max 15 Kg'), ('25Kg', 'BB max 25 Kg'), ('35Kg', 'BB max 35 Kg')], max_length=4),
         ),
     ]

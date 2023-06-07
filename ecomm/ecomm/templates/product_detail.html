@@ -21,9 +21,9 @@
                         <a href="">
                             <span class="badge bg-dark me-1">{{ object.get_kategori_display }}</span>
                         </a>
-                        {% if object.label == 'NEW' %}
+                        {% if object.label == '15Kg' %}
                         <a href="">
-                            <span class="badge bg-{{ object.get_label_display }} me-1">New</span>
+                            <span class="badge bg-{{ object.get_label_display }} me-1">15Kg</span>
                         </a>
                         {% elif object.label == 'SALE' %}
                         <a href="">
@@ -39,11 +39,11 @@
                     <p class="lead">
                         {% if object.harga_diskon %}
                         <span class="me-1">
-                            <del>${{ object.harga }}</del>
+                            <del>Rp{{ object.harga }}</del>
                         </span>
-                        <span>${{ object.harga_diskon }}</span>
+                        <span>Rp{{ object.harga_diskon }}</span>
                         {% else %}
-                        <span>${{ object.harga }}</span>
+                        <span>Rp{{ object.harga }}</span>
                         {% endif %}
                     </p>
 

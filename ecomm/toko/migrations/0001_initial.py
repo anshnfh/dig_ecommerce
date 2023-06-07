@@ -21,8 +21,8 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(unique=True)),
                 ('deskripsi', models.TextField()),
                 ('gambar', models.ImageField(upload_to='product_pics')),
-                ('label', models.CharField(choices=[('NEW', 'primary'), ('SALE', 'secondary'), ('BEST', 'danger')], max_length=4)),
-                ('kategori', models.CharField(choices=[('S', 'Shirt'), ('SW', 'Sport wear'), ('OW', 'Outwear')], max_length=2)),
+                ('label', models.CharField(choices=[('15Kg', 'BB max 15 Kg'), ('25Kg', 'BB max 25 Kg'), ('35Kg', 'BB max 35 Kg')], max_length=4)),
+                ('kategori', models.CharField(choices=[('S', 'Slide'), ('SS', 'Seesaw'), ('P', 'Playhouse'),('MB', 'Mandi bola'),('T', 'Trampoline')], max_length=5)),
             ],
         ),
     ]
