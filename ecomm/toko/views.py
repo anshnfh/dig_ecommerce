@@ -7,9 +7,10 @@ from django.utils import timezone
 from django.views import generic
 from paypal.standard.forms import PayPalPaymentsForm
 
+from django.db.models import Avg
 
-from .forms import CheckoutForm
-from .models import ProdukItem, OrderProdukItem, Order, AlamatPengiriman, Payment, Rating
+from .forms import CheckoutForm, ReviewForm
+from .models import ProdukItem, OrderProdukItem, Order, AlamatPengiriman, Payment, Review
 
 class HomeListView(generic.ListView):
     template_name = 'home2.html'
@@ -224,15 +225,15 @@ def paypal_cancel(request):
     return redirect('toko:order-summary')
 
 
-def add_rating(request, object_id):
-    product = get_object_or_404(ProdukItem, pk=object_id)
-    if request.method == 'POST':
-        score = request.POST.get('score')
-        comment = request.POST.get('comment')
-        rating = Rating(produk_id=product.id, user=request.user, score=score, comment=comment)
-        rating.save()
-        return redirect('toko:produk-detail', slug = product.slug)
-    return render(request, 'add_rating.html', {'produk_items': product})
+#def add_rating(request, object_id):
+#    product = get_object_or_404(ProdukItem, pk=object_id)
+#    if request.method == 'POST':
+#        score = request.POST.get('score')
+#        comment = request.POST.get('comment')
+#        rating = Rating(produk_id=product.id, user=request.user, score=score, comment=comment)
+#        rating.save()
+#        return redirect('toko:produk-detail', slug = product.slug)
+#    return render(request, 'add_rating.html', {'produk_items': product})
 
 
 # def product_detail(request, object_id):
@@ -245,3 +246,97 @@ def add_rating(request, object_id):
 
 def kontak(request):
     return render(request,'contact.html')
+
+def detail(request,id):
+    produk = ProdukItem.objects.get(id=id)
+    reviews = Review.objects.filter(produk=id).order_by("-comment")
+    totalReview = reviews.count()
+
+    x = 0
+    j = 0
+    starCount = {}
+    percDict = {}
+
+    for i in reviews.all():
+        j += 1
+        count = Review.objects.filter(produk=id, score=j).count()
+        starCount.update( {j : count} )
+
+        perc = count * 100 / totalReview
+        percDict.update( {j : perc} )
+
+    average = reviews.aggregate(Avg("score"))["score__avg"]
+    if average == None:
+        average=0
+    else:
+        average = round(average,2)
+
+    roundedAverage = round(average)
+    modulusAverage = 5 - roundedAverage
+    context={
+        "prod":produk,
+        "reviews":reviews,
+        "average":average,
+        "fiveStarCount": starCount[5],
+        "fourStarCount": starCount[4],
+        "threeStarCount": starCount[3],
+        "twoStarCount": starCount[2],
+        "oneStarCount": starCount[1],
+        "totalReview": totalReview,
+        "fiveStarPerc": percDict[5],
+        "fourStarPerc": percDict[4],
+        "threeStarPerc": percDict[3],
+        "twoStarPerc": percDict[2],
+        "oneStarPerc": percDict[1],
+        "roundedAverage": roundedAverage,
+        "modulusAverage": modulusAverage,
+
+    }
+    return render(request,'details.html',context)
+
+def add_review(request, id):
+    if request.user.is_authenticated:
+        product = ProdukItem.objects.get(id=id)
+        if request.method == "POST":
+            form = ReviewForm(request.POST or None)
+            print(form)
+            if form.is_valid():
+                data = form.save(commit=False)
+                data.comment = request.POST["comment"]
+                data.score = request.POST["score"]
+                data.user = request.user
+                data.produk = product
+                data.save()
+                return redirect("toko:detail",id)
+        else:
+            form = ReviewForm()
+        return render(request,'details.html',{'form':form})
+
+def edit_review(request, produk_id, review_id):
+    if request.user.is_authenticated:
+        produk = ProdukItem.objects.get(id=produk_id)
+        review = Review.objects.get(produk=produk, id=review_id)
+        if request.user == review.user:
+            if request.method == "POST":
+                form = ReviewForm(request.POST,instance=review)
+                if form.is_valid():
+                    data = form.save(commit=False)
+                    if (data.score>5) or (data.score<0):
+                        error="Out of range. Please select score from 0 to 5."
+                        return render(request,'editreview.html',{'error':error, "form":form})
+                    else:
+                        data.save()
+                        return redirect("toko:detail",produk_id)
+            else:
+                form = ReviewForm(instance=review)
+            return render(request,'editreview.html',{"form":form})
+        else:
+            return redirect("toko:detail",produk_id)
+
+def delete_review(request, produk_id, review_id):
+    if request.user.is_authenticated:
+        produk = ProdukItem.objects.get(id=produk_id)
+        review = Review.objects.get(produk=produk, id=review_id)
+        if request.user == review.user:
+            review.delete()
+        return redirect("toko:detail", produk_id)
